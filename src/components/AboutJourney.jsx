@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const AboutJourney = () => {
   const education = [
     { year: 'Since Aug 2023', title: 'B.Tech CSE - Lovely Professional University', desc: 'Pursuing Bachelor of Technology in Computer Science and Engineering. Maintaining a CGPA of 7.6. Focus on advanced algorithms and full-stack architecture.', highlight: true },
-    { year: '2022 - 2023', title: 'Intermediate - PM SHRI KV No. 1 AFS Tambaram', desc: 'Completed Higher Secondary Education with a focus on PCM. Percentage: 64.6%' },
+    { year: '2022 - 2023', title: 'Intermediate - PM SHRI KV No. 1 AFS Tambaram', desc: 'Completed Higher Secondary Education with a focus on PCM. Percentage: 76%' },
     { year: '2019 - 2021', title: 'Matriculation - PM SHRI KV No. 1 AFS Tambaram', desc: 'Completed Secondary Education with high distinction. Percentage: 92%' }
   ];
 

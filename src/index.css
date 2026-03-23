@@ -17,6 +17,10 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -24,6 +28,7 @@
     font-family: 'Poppins', sans-serif;
   }
 }
+
 
 @layer utilities {
   .text-gradient {
@@ -40,9 +45,41 @@
     background-size: 200% auto;
     animation: textGradient 4s linear infinite;
   }
+
+  .animate-mesh {
+    background-size: 400% 400%;
+    animation: mesh 15s ease infinite;
+  }
+
+  .btn-shine {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-shine::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-20deg);
+    transition: all 0.7s ease;
+  }
+
+  .btn-shine:hover::after {
+    left: 200%;
+  }
 }
 
 @keyframes textGradient {
   0% { background-position: 0% center; }
   100% { background-position: 200% center; }
+}
+
+@keyframes mesh {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }

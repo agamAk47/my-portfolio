@@ -24,12 +24,42 @@ const Navbar = ({ theme, toggleTheme }) => {
       }`}
     >
       <div className={`mx-auto max-w-7xl px-6 md:px-12 transition-all duration-300`}>
-        <div className={`flex items-center justify-between transition-all duration-300 ${isScrolled ? (theme === 'dark' ? 'bg-[#0f111a]/80 backdrop-blur-xl border border-white/10' : 'bg-white/80 backdrop-blur-xl border border-slate-200') + ' rounded-full px-6 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.1)]' : 'px-2'}`}>
+        <div className={`flex items-center justify-between transition-all duration-300 ${isScrolled ? (theme === 'dark' ? 'bg-[#0f111a]/80 backdrop-blur-xl border border-white/10' : 'bg-white/40 backdrop-blur-xl border border-slate-200') + ' rounded-full px-6 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.1)]' : 'px-2'}`}>
           
           {/* Logo Branding */}
-          <a href="#home" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-neon-blue to-neon-purple flex items-center justify-center font-black text-white text-sm group-hover:shadow-[0_0_15px_rgba(0,243,255,0.5)] transition-shadow">AK</div>
-            <span className={`text-lg font-bold tracking-tight font-poppins transition-colors ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Agam Kumar</span>
+          <a href="#home" className="flex items-center gap-2 md:gap-3 group relative cursor-pointer py-1">
+            {/* Animated Icon */}
+            <div className="relative flex items-center justify-center w-8 h-8 md:w-10 md:h-10">
+              {/* Spinning dashed border */}
+              <motion.div 
+                animate={{ rotate: 360 }}
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-0 rounded-xl border border-dashed border-neon-purple/80 transition-colors"
+              />
+              {/* Inner glowing block - always glowing */}
+              <div className="absolute inset-1.5 rounded-lg bg-gradient-to-br from-neon-blue to-neon-purple opacity-100 blur-[6px] transition-all duration-300"></div>
+              {/* Monogram */}
+              <div className={`absolute inset-1.5 rounded-lg flex items-center justify-center font-black text-[10px] md:text-sm z-10 transition-colors ${theme === 'dark' ? 'bg-[#0f111a] text-white' : 'bg-white text-slate-900'}`}>
+                <span className="text-neon-blue mr-[1px]">A</span>
+                <span className="text-neon-purple">K</span>
+              </div>
+            </div>
+
+            {/* Typography - Hover state made default */}
+            <div className="flex items-baseline overflow-hidden font-poppins relative">
+              <span className="text-neon-blue font-mono font-bold text-[15px] md:text-lg mr-1 opacity-100 translate-x-0 transition-all duration-300">
+                &lt;
+              </span>
+              <span className={`text-[17px] md:text-xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-purple flex items-center`}>
+                Agam
+              </span>
+              <span className={`text-[17px] md:text-xl font-medium tracking-tight ml-1.5 transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-slate-900'} flex items-center`}>
+                Kumar
+              </span>
+              <span className="text-neon-purple font-mono font-bold text-[15px] md:text-lg ml-1 opacity-100 translate-x-0 transition-all duration-300">
+                /&gt;
+              </span>
+            </div>
           </a>
 
           {/* Desktop Nav */}

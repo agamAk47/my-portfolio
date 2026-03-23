@@ -5,67 +5,32 @@ import profileImg from '../assets/WhatsApp Image 2026-03-24 at 12.12.54 AM.jpeg'
 import resumePdf from '../assets/Agam_sub_cv_final.pdf';
 import { socialLinks } from '../data/portfolioData';
 
-const OrbitingIcon = ({ icon, radius, duration, delay }) => (
-  <motion.div
-    className="absolute top-1/2 left-1/2 w-[52px] h-[52px] -mt-[26px] -ml-[26px] z-20 flex items-center justify-center bg-[#0d0f16] rounded-xl border border-white/10 shadow-2xl shadow-cyan-500/20 pointer-events-auto"
-    animate={{ 
-      transform: [
-        `rotate(0deg) translateX(${radius}px) rotate(0deg)`,
-        `rotate(360deg) translateX(${radius}px) rotate(-360deg)`
-      ]
-    }}
-    transition={{ 
-      duration, 
-      repeat: Infinity, 
-      ease: "linear", 
-      delay 
-    }}
-  >
-    <img src={icon} alt="tech icon" className="w-8 h-8 object-contain" />
-  </motion.div>
-);
-
-const BubbleParticles = () => {
-  const [bubbles, setBubbles] = useState([]);
-  useEffect(() => {
-    // Generate random bubbles ONLY once on mount
-    const newBubbles = Array.from({ length: 15 }).map((_, i) => ({
-      id: i,
-      size: Math.random() * 80 + 20,
-      left: Math.random() * 100,
-      delay: Math.random() * 10,
-      duration: Math.random() * 15 + 15,
-      startX: (Math.random() - 0.5) * 200
-    }));
-    setBubbles(newBubbles);
-  }, []);
-
+const OrbitingIcon = ({ icon, radius, duration, delay, theme }) => {
+  const isDark = theme === 'dark';
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden h-full">
-      {bubbles.map(b => (
-        <motion.div
-          key={b.id}
-          className="absolute rounded-full bg-neon-blue/10 blur-[2px] border border-neon-blue/20"
-          style={{ width: b.size, height: b.size, left: `${b.left}%`, bottom: "-150px" }}
-          animate={{
-            y: [0, -1200],
-            x: [0, b.startX, 0],
-            opacity: [0, 0.4, 0]
-          }}
-          transition={{
-            duration: b.duration,
-            repeat: Infinity,
-            ease: "linear",
-            delay: b.delay
-          }}
-        />
-      ))}
-    </div>
+    <motion.div
+      className={`absolute top-1/2 left-1/2 w-[52px] h-[52px] -mt-[26px] -ml-[26px] z-20 flex items-center justify-center rounded-xl border transition-all duration-300 pointer-events-auto ${isDark ? 'bg-[#0d0f16] border-white/10 shadow-2xl shadow-cyan-500/20' : 'bg-white border-slate-200 shadow-xl shadow-slate-200/50'}`}
+      animate={{ 
+        transform: [
+          `rotate(0deg) translateX(${radius}px) rotate(0deg)`,
+          `rotate(360deg) translateX(${radius}px) rotate(-360deg)`
+        ]
+      }}
+      transition={{ 
+        duration, 
+        repeat: Infinity, 
+        ease: "linear", 
+        delay 
+      }}
+    >
+      <img src={icon} alt="tech icon" className="w-8 h-8 object-contain" />
+    </motion.div>
   );
 };
 
 
-const Hero = () => {
+const Hero = ({ theme }) => {
+  const isDark = theme === 'dark';
   const [isMobile, setIsMobile] = useState(false);
   const [roleText, setRoleText] = useState('');
   const [roleIndex, setRoleIndex] = useState(0);
@@ -120,10 +85,8 @@ const Hero = () => {
   ];
 
   return (
-    <section id="home" className="relative w-full min-h-[100vh] flex items-center pt-32 pb-10 px-6 overflow-hidden">
+    <section id="home" className={`relative w-full min-h-[100vh] flex items-center pt-32 pb-10 px-6 overflow-hidden transition-colors duration-500 ${isDark ? '' : 'bg-transparent'}`}>
       
-      <BubbleParticles />
-
       <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-16 items-center relative z-10">
         
         {/* Left Content */}
@@ -133,12 +96,12 @@ const Hero = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="flex flex-col gap-6 text-center lg:text-left"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-neon-blue/30 bg-neon-blue/10 w-fit backdrop-blur-sm self-center lg:self-start">
+          <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border w-fit backdrop-blur-sm self-center lg:self-start transition-colors ${isDark ? 'border-neon-blue/30 bg-neon-blue/10' : 'border-neon-blue/20 bg-neon-blue/5'}`}>
             <span className="w-2 h-2 rounded-full bg-neon-blue animate-pulse"></span>
-            <span className="text-sm font-medium text-neon-blue">Available for Work</span>
+            <span className="text-sm font-bold text-neon-blue">Available for Work</span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-[1.1]">
+          <h1 className={`text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] transition-colors ${isDark ? 'text-white' : 'text-slate-900'}`}>
             Hey! I'm <br className="hidden md:block"/>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-blue via-neon-purple to-neon-blue animate-gradient-text">
               Agam Kumar
@@ -147,18 +110,18 @@ const Hero = () => {
           
           <div className="h-[40px] flex items-center justify-center lg:justify-start">
             <h2 className="text-2xl md:text-3xl font-semibold text-neon-blue font-poppins">
-              <span className="text-slate-500 mr-2 opacity-50 font-normal">{"{"}</span>
+              <span className={`mr-2 opacity-50 font-normal transition-colors ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{"{"}</span>
               {roleText}
               <motion.span 
                 animate={{ opacity: [1, 0] }}
                 transition={{ duration: 0.8, repeat: Infinity }}
                 className="inline-block w-[3px] h-[24px] bg-neon-blue ml-1 align-middle"
               />
-              <span className="text-slate-500 ml-2 opacity-50 font-normal">{"}"}</span>
+              <span className={`ml-2 opacity-50 font-normal transition-colors ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{"}"}</span>
             </h2>
           </div>
           
-          <p className="text-lg text-slate-400 max-w-xl mx-auto lg:mx-0 leading-relaxed mt-2">
+          <p className={`text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed mt-2 transition-colors ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
             B.Tech CSE student at Lovely Professional University. I specialize in building scalable MERN stack 
             applications and AI-driven tools, always pushing the boundaries of modern web development.
           </p>
@@ -168,16 +131,16 @@ const Hero = () => {
               href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 rounded-full bg-gradient-to-r from-neon-blue to-neon-cyan text-dark font-bold flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,243,255,0.4)] transition-all hover:shadow-[0_0_30px_rgba(0,243,255,0.6)]"
+              className={`btn-shine px-8 py-4 rounded-full font-bold flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(0,243,255,0.4)] hover:shadow-[0_0_30px_rgba(0,243,255,0.6)] ${isDark ? 'bg-gradient-to-r from-neon-blue to-neon-cyan text-[#050a14]' : 'bg-slate-900 text-white'}`}
             >
               Contact Me <ArrowRight size={20} />
             </motion.a>
             
             <motion.a 
               href={resumePdf} download="Agam_Kumar_Resume.pdf"
-              whileHover={{ scale: 1.05, backgroundColor: "rgba(0, 243, 255, 0.1)" }}
+              whileHover={{ scale: 1.05, backgroundColor: isDark ? "rgba(0, 243, 255, 0.1)" : "rgba(0, 243, 255, 0.05)" }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 rounded-full border-2 border-neon-blue text-neon-blue font-bold flex items-center justify-center gap-2 backdrop-blur-sm transition-all shadow-[0_0_15px_rgba(0,243,255,0.1)] hover:shadow-[0_0_25px_rgba(0,243,255,0.3)]"
+              className={`btn-shine px-8 py-4 rounded-full border-2 font-bold flex items-center justify-center gap-2 backdrop-blur-sm transition-all shadow-[0_0_15px_rgba(0,243,255,0.1)] hover:shadow-[0_0_25px_rgba(0,243,255,0.3)] ${isDark ? 'border-neon-blue text-neon-blue' : 'border-slate-200 text-slate-700'}`}
             >
               Download Resume <Download size={20} />
             </motion.a>
@@ -195,17 +158,17 @@ const Hero = () => {
           >
             {/* Inner Dashed Orbit Ring (320px diameter) */}
             <div 
-              className="absolute w-[320px] h-[320px] rounded-full border-[1px] border-dashed border-neon-blue/40 shadow-[0_0_15px_rgba(0,200,255,0.1)]"
+              className={`absolute w-[320px] h-[320px] rounded-full border-[1px] border-dashed transition-colors ${isDark ? 'border-neon-blue/40 shadow-[0_0_15px_rgba(0,200,255,0.1)]' : 'border-neon-blue/20 shadow-[0_0_15px_rgba(0,200,255,0.05)]'}`}
             />
             {/* Outer Dashed Orbit Ring (440px diameter) */}
             <div 
-              className="absolute w-[440px] h-[440px] rounded-full border-[1.5px] border-dashed border-neon-blue/30 shadow-[0_0_25px_rgba(0,200,255,0.1)]"
+              className={`absolute w-[440px] h-[440px] rounded-full border-[1.5px] border-dashed transition-colors ${isDark ? 'border-neon-blue/30 shadow-[0_0_25px_rgba(0,200,255,0.1)]' : 'border-neon-blue/15 shadow-[0_0_25px_rgba(0,200,255,0.05)]'}`}
             />
             
-            <div className="absolute w-[400px] h-[400px] rounded-full bg-gradient-to-tr from-neon-blue/10 to-neon-purple/10 blur-[70px] mix-blend-screen opacity-60" />
+            <div className={`absolute w-[400px] h-[400px] rounded-full blur-[70px] mix-blend-screen transition-opacity ${isDark ? 'bg-gradient-to-tr from-neon-blue/10 to-neon-purple/10 opacity-60' : 'bg-gradient-to-tr from-neon-blue/5 to-neon-purple/5 opacity-40'}`} />
 
             {/* Circular Profile Image Container (260px diameter) - STATIC */}
-            <div className="relative z-10 w-[220px] h-[220px] md:w-[260px] md:h-[260px] rounded-full border-[4px] border-[#07090e] shadow-[0_0_50px_rgba(0,243,255,0.3)] overflow-hidden bg-[#161a2b] flex items-center justify-center">
+            <div className={`relative z-10 w-[220px] h-[220px] md:w-[260px] md:h-[260px] rounded-full border-[4px] transition-all shadow-[0_0_50px_rgba(0,243,255,0.3)] overflow-hidden flex items-center justify-center ${isDark ? 'border-[#07090e] bg-[#161a2b]' : 'border-white bg-slate-50'}`}>
               <img 
                 src={profileImg} 
                 alt="Agam Kumar" 
@@ -226,6 +189,7 @@ const Hero = () => {
                   radius={160} 
                   duration={15} 
                   delay={i * -3} 
+                  theme={theme}
                 />
               ))}
               {/* Outer Orbit (Radius 220px) */}
@@ -236,6 +200,7 @@ const Hero = () => {
                   radius={220} 
                   duration={25} 
                   delay={i * -5} 
+                  theme={theme}
                 />
               ))}
             </div>
