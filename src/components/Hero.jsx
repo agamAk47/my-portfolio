@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Download } from 'lucide-react';
 import profileImg from '../assets/WhatsApp Image 2026-03-24 at 12.12.54 AM.jpeg';
-import resumePdf from '../assets/Agam_sub_cv_final.pdf';
+import resumePdf from '../assets/Agam_Kumar_CV_2026.pdf';
 import { socialLinks } from '../data/portfolioData';
 
 const OrbitingIcon = ({ icon, radius, duration, delay, theme }) => {
