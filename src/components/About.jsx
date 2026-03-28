@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import profileImg from '../assets/WhatsApp Image 2026-03-24 at 12.12.54 AM.jpeg';
+import profileImg from '../assets/Man_in_suit_202603290048.jpeg';
 
 const About = ({ theme }) => {
   const isDark = theme === 'dark';
